@@ -3,7 +3,7 @@ import sys
 import logging
 logging.basicConfig(stream=sys.stderr)
 
-sys.path.insert(0,"/var/www/iHackClub/")
+sys.path.insert(0,"/var/www/")
 
-from FlaskApp import app as application
+from app import app as application
 application.secret_key = "secret"
