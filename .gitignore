@@ -1,3 +1,5 @@
+env/
+.DS_Store
 .idea
 dist
 *.pyc
@@ -11,7 +13,6 @@ resources/globalprod.cfg
 *.xlsx
 *.jar
 MANIFEST
-*.txt
 *.csv
 *mapper.py
 !thrivext/templates/report_template.html
