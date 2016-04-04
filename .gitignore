@@ -21,3 +21,5 @@ docs/*
 !docs/*.rst
 !docs/*.py
 !docs/Makefile
+.vagrant/
+Vagrantfile
