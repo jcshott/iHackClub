@@ -23,6 +23,7 @@ def addUser():
 def create_new_project():
 	""" returns empty new project form along with the multi-select variables """
 
+	# I have this here for now but we can keep this structure somewhere else. this just dynamically renders the multi-select options so it's not hardcoded in HTML - then we can change as we see fit.
 	form_variables = {"regions": ["East Bay", "North Bay", "Peninsula", "San Francisco", "South Bay", "All", "n/a"], 
 					"technologies": [{'Backend/Server-Side': ["C", "C#", "C++", "Go", "Java", "Node.js", "Perl", "PHP", "Python", "Ruby", "Scala"]}, {"Database": ["MongoDB", "MySQL", "PostgreSQL", "Redis", "SQL Server"]}, {"Frontend": ["HTML/CSS", "Javascript", "Bootstrap", "Angular.js", "Backbone.js", "D3.js", "Ember.js", "jQuery", "React.js" ]}, {"Mobile": ["iOS", "Android"]}], 
 					"skills": ["Coding (Server-Side)", "Coding (Frontend)", "Database", "Testing", "UX/UI", "Visual Design"], 
