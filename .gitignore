@@ -4,7 +4,6 @@ env/
 dist
 *.pyc
 *.iml
-*.html
 **/workflow-properties/*
 resources/globalpreprod.cfg
 resources/globalprod.cfg
