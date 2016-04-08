@@ -1,12 +1,21 @@
 {% extends "base.html" %}
 
 {% block body %}
+<style>
+/*adds astrix to the required field labels*/
+.required label:after {
+    color: #e32;
+    content: ' *';
+    display:inline;
+}
+</style>
+
 
 <div class="container">
 <legend> Post a New Project </legend>
 <small> Not all fields are required but the more information you provide, the easier it will be for potential collaborators to find your project!</small>
 	
-<form class="form-horizontal" data-toggle="validator" id="newProjectForm" action="/" method="post">
+<form class="form-horizontal" data-toggle="validator" role="form" id="newProjectForm" action="/" method="post">
 	<div class="panel-group" id="pg" role="tablist" aria-multiselectable="true">
 	
 	<div class="panel panel-defalut">
@@ -20,26 +29,30 @@
 		
 		<div id="basicInfo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingBasics">
 			<div class="panel-body" id="basics">
-				<div class="form-group required">
+				<div class="form-group has-feedback required">
 					<label for="projName">Project Name </label>
 					<input type="text" class="form-control" name="project_name" id="project_name" required="required">
+					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+					<div class="help-block with-errors"></div>
 				</div>
-				<div class="form-group">
+				<div class="form-group has-feedback required">
 					<label for="description">Short Description of Project</label>
 					<textarea class="form-control" rows="3" name="description" id="description" placeholder="Description must be 250 characters or less"></textarea>
+					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+					<div class="help-block with-errors"></div>
 				</div>
 				<div class="form-group">
 					<label for="projectStart">Start Date</label>
-					<input type="date" class="form-control" name="project_start" id="project_start">
+					<input type="date" class="form-control" name="project_start" id="projectStart">
 				</div>
 				<div class="form-group">
 					<label for="projectEnd">Projected End Date</label>
-					<input type="date" class="form-control" name="project_end" id="project_end">
+					<input type="date" class="form-control" name="project_end" id="projectEnd">
 				</div>
 				<div class="form-group">
 					<h4> Target Industries </h4>
 					<p class="help-block">Select all that apply.</p>
-					<select multiple class="form-control" id="target_industry" name="target_industry">
+					<select multiple class="form-control" id="targetIndustry" name="target_industry">
 						{% for industry in formVars.industries %}
 		    				<option value="{{ industry }}">{{ industry }} </option>
 						{% endfor %}
@@ -61,14 +74,14 @@
 			<div class="panel-body">
 				<div class="form-group">
 					<label for="teamSize">Preferred Team Size</label>
-					<input type="number" class="form-control" name="team_size" id="team_size">
+					<input type="number" class="form-control" name="team_size" id="teamSize">
 				</div>
 				<div class="form-group">
 					<label for="hoursPerWeek">Expected Hours-per-Week Committment</label>
-					<input type="number" class="form-control" name="hours_per_week" id="hours_per_week">
+					<input type="number" class="form-control" name="hours_per_week" id="hoursPerWeek">
 				</div>
 				
-				<div class="checkbox" id="meetup_options">
+				<div class="checkbox" id="meetupOptions">
 				<h4> Collaboration Options </h4>
 					<p class="help-block">Check all that apply.</p>
 					<label>
@@ -79,7 +92,7 @@
 					</label>
 				</div>
 				<div class="form-group">
-					<h4> Region of Bay Area Where Team Plans to Meet</h4>
+					<h4> Region(s) of Bay Area Where Team Plans to Meet</h4>
 					<p class="help-block">Select all that apply.</p>
 					<select multiple class="form-control" id="region" name="region">
 						{% for region in formVars.regions %}
@@ -119,7 +132,7 @@
 				<div class="form-group">
 					<h4> Skills Sought </h4>
 					<p class="help-block">Select all that apply.</p>
-					<select multiple class="form-control" name="skills_needed" id="skills_needed">
+					<select multiple class="form-control" name="skills_needed" id="skillsNeeded">
 						{% for skill in formVars.skills %}
 		    				<option value="{{ skill }}">{{ skill }} </option>
 						{% endfor %}
@@ -128,7 +141,7 @@
 				<div class="form-group">
 					<h4> Target Devices </h4>
 					<p class="help-block">Select all that apply.</p>
-					<select multiple class="form-control" id="target_devices" name="target_devices">
+					<select multiple class="form-control" id="targetDevices" name="target_devices">
 						{% for device in formVars.devices %}
 		    				<option value="{{ device }}">{{ device }} </option>
 						{% endfor %}
@@ -142,39 +155,7 @@
 </form>
 </div>
 
-
-
-<script>
-// this changes the carets when collapse is hidden/shown
-
-
-$('#pg').on('hide.bs.collapse', function (e) {
-  var target = e.target.id;
-  var headerId = document.getElementById(target).getAttribute("aria-labelledby");
-  var selector = "#" + headerId
-  $(selector).find("span").attr("class", "glyphicon glyphicon-triangle-right");
-
-});
-
-$('#pg').on('show.bs.collapse', function (e) {
-  var target = e.target.id;
-  var headerId = document.getElementById(target).getAttribute("aria-labelledby");
-  var selector = "#" + headerId
-  $(selector).find("span").attr("class", "glyphicon glyphicon-triangle-bottom");
-
-});
-
-
-
-// successfully submits data to route. route successfully parses into dictionary
-	$("#newProjectForm").submit(function (evt) {
-		evt.preventDefault();
-
-		$.post("/save_project", $( "#newProjectForm" ).serialize(), function (result){
-			console.log(result);
-		});
-
-	})
-</script>
+<script src="/static/js/validator.min.js"></script>
+<script src="/static/js/submitNewProject.js"></script>
 
 {% endblock %}
