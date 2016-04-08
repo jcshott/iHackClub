@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, request, url_for, redirect, session
+from flask import Flask, render_template, flash, request, url_for, redirect, session, jsonify
 
 
 app = Flask(__name__)
@@ -39,8 +39,22 @@ def process_new_project_data():
 	# multi-dict with form data http://werkzeug.pocoo.org/docs/0.11/datastructures/#werkzeug.datastructures.MultiDict
 	form_data = request.form
 	form_data = form_data.to_dict(flat=False)
-	# form_data is a dict with key=input name (i.e. project_name) and val=[values]. val will always be a list
-	return "ok"
+	# form_data is a dict with key=input name (i.e. project_name) and val=[values].
+	# val will always be a list
+	
+	# these two are the only required inputs so they will always have a value
+	# project_name
+	# description
+	# project_start (defaults to current day if not changed by user)
+
+	# these are not required but will be sent to server as val = [""]
+	# project_end
+	# hours_per_week
+	# team_size
+
+	# the others are multi-select or checkboxes and if they aren't filled out by user, they don't appear in form_data dict
+
+	return jsonify(form_data)
 
 
 if __name__ == "__main__":

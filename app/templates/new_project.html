@@ -15,7 +15,7 @@
 <legend> Post a New Project </legend>
 <small> Not all fields are required but the more information you provide, the easier it will be for potential collaborators to find your project!</small>
 	
-<form class="form-horizontal" data-toggle="validator" role="form" id="newProjectForm" action="/" method="post">
+<form class="form-horizontal" role="form" id="newProjectForm" action="/" method="post">
 	<div class="panel-group" id="pg" role="tablist" aria-multiselectable="true">
 	
 	<div class="panel panel-defalut">
@@ -30,24 +30,25 @@
 		<div id="basicInfo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingBasics">
 			<div class="panel-body" id="basics">
 				<div class="form-group has-feedback required">
-					<label for="projName">Project Name </label>
-					<input type="text" class="form-control" name="project_name" id="project_name" required="required">
+					<label for="projName" class="control-label">Project Name </label>
+					<input type="text" class="form-control" name="project_name" id="project_name" required maxlength="64" data-error="Please provide an initial title - don't worry, you can update if needed.">
 					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="form-group has-feedback required">
 					<label for="description">Short Description of Project</label>
-					<textarea class="form-control" rows="3" name="description" id="description" placeholder="Description must be 250 characters or less"></textarea>
+					<textarea class="form-control" rows="3" name="description" id="description" data-error="Please provide at least a short description" required></textarea>
 					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-					<div class="help-block with-errors"></div>
+					<div class="help-block with-errors">Maximum of 4000 characters</div>
 				</div>
 				<div class="form-group">
 					<label for="projectStart">Start Date</label>
 					<input type="date" class="form-control" name="project_start" id="projectStart">
 				</div>
-				<div class="form-group">
+				<div class="form-group has-feedback">
 					<label for="projectEnd">Projected End Date</label>
-					<input type="date" class="form-control" name="project_end" id="projectEnd">
+					<input type="date" class="form-control" name="project_end" id="projectEnd" data-checkend='checkend'>
+					<div class="help-block with-errors"></div>
 				</div>
 				<div class="form-group">
 					<h4> Target Industries </h4>
@@ -155,7 +156,7 @@
 </form>
 </div>
 
-<script src="/static/js/validator.min.js"></script>
+<script src="http://1000hz.github.io/bootstrap-validator/dist/validator.min.js"></script>
 <script src="/static/js/submitNewProject.js"></script>
 
 {% endblock %}
