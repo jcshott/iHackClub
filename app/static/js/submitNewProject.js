@@ -9,16 +9,17 @@ $("#projectStart").val(
 $('#pg').on('hide.bs.collapse', function (e) {
   var target = e.target.id;
   var headerId = document.getElementById(target).getAttribute("aria-labelledby");
-  var selector = "#" + headerId
-  $(selector).find("span").attr("class", "glyphicon glyphicon-triangle-right");
+  var selector = "#" + headerId;
+
+  $(selector).find('i').attr("class", "fa fa-plus-square-o");
 
 });
 
 $('#pg').on('show.bs.collapse', function (e) {
   var target = e.target.id;
   var headerId = document.getElementById(target).getAttribute("aria-labelledby");
-  var selector = "#" + headerId
-  $(selector).find("span").attr("class", "glyphicon glyphicon-triangle-bottom");
+  var selector = "#" + headerId;
+  $(selector).find('i').attr("class", "fa fa-minus-square-o");
 
 });
 
@@ -58,11 +59,19 @@ var customValidatorOptions = {
 // submission of form
 $('#newProjectForm').validator().on('submit', function (evt) {
   if (evt.isDefaultPrevented()) {
+    
     // here's were logic goes if form is invalid
+    // open the top group if there is errors & show error message.
+    $("#badSubmit").show();
+    if ($("#basicInfo").hasClass("panel-collapse collapse") ) {
+      $("#headingBasics").collapse('show');
+      $("#basicInfo").collapse('show');
+    };
+    
   } else {
     evt.preventDefault();
 
-	// successfully submits data to route. route successfully parses into dictionary
+	   // successfully submits data to route. route successfully parses into dictionary
 		$.post("/save_project", $( "#newProjectForm" ).serialize(), function (result){
 			console.log(result);
 		});

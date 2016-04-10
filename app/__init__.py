@@ -52,7 +52,8 @@ def process_new_project_data():
 	# hours_per_week
 	# team_size
 
-	# the others are multi-select or checkboxes and if they aren't filled out by user, they don't appear in form_data dict
+	# the others are multi-select or checkboxes and if they aren't filled out by user, 
+	# they don't appear in form_data dict
 
 	return jsonify(form_data)
 
