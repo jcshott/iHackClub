@@ -5,7 +5,7 @@ $("#projectStart").val(
     }
 );
 
-// change the carets when collapse is hidden/shown
+// change the icon symbol when collapse is hidden/shown
 $('#pg').on('hide.bs.collapse', function (e) {
   var target = e.target.id;
   var headerId = document.getElementById(target).getAttribute("aria-labelledby");
