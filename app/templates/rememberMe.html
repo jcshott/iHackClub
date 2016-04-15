@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class=no-js>
+<head><meta charset=utf-8>
+  <title>Remember Me</title>
+  <meta name=description content="">
+  <!-- <meta name="viewport" content="width=400">-->
+</head>
+<body>
+<div class="container">
+    <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="input-block-level" placeholder="Email address" id='username'>
+        <br>
+        <input type="password" class="input-block-level" placeholder="Password" id="password">
+        <br>
+        <label class="checkbox">
+            <input type="checkbox" value="remember-me" id="remember_me"> Remember me
+        </label>
+        <br>
+        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+    </form>
+</div> 
+   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script>
+           $(function() {
+ 
+                if (localStorage.chkbx && localStorage.chkbx != '') {
+                    $('#remember_me').attr('checked', 'checked');
+                    $('#username').val(localStorage.usrname);
+                    $('#password').val(localStorage.pass);
+                } else {
+                    $('#remember_me').removeAttr('checked');
+                    $('#username').val('');
+                    $('#password').val('');
+                }
+ 
+                $('#remember_me').on('submit', function() {
+ 
+                    if ($('#remember_me').is(':checked')) {
+                        // save username and password
+                        localStorage.usrname = $('#username').val();
+                        localStorage.pass = $('#password').val();
+                        localStorage.chkbx = $('#remember_me').val();
+                    } else {
+                        localStorage.usrname = '';
+                        localStorage.pass = '';
+                        localStorage.chkbx = '';
+                    }
+                });
+            });
+      /* 
+            $('form').on('submit', function() {
+              if ($('#remember-me').is(':checked')) {
+                  // save username and password
+                  localStorage.userName = $('#username').val();
+                  localStorage.password = $('#pass').val();
+                  localStorage.checkBoxValidation = $('#remember-me').val();
+              } else {
+                  localStorage.userName = '';
+                  localStorage.password = '';
+                  localStorage.checkBoxValidation = '';
+              }
+     
+        //Other form functions
+}); */
+        </script>
+</body>
+</html>
