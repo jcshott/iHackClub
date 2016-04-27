@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block body %}
+<style>
+/*adds astrix to the required field labels*/
+.required label:after {
+    color: #e32;
+    content: ' *';
+    display:inline;
+}
+</style>
+
+
+<div class="container">
+<legend> Post a New Project </legend>
+<small> Not all fields are required but the more information you provide, the easier it will be for potential collaborators to find your project!</small>
+
+<form class="form-horizontal" role="form" id="newProjectForm" action="/" method="post">
+	<div class="panel-group" id="pg" role="tablist" aria-multiselectable="true">
+	
+	<div class="panel panel-defalut">
+		<div class="panel-heading" role="tab" id="headingBasics">
+			<h4 class="panel-title">
+				<a role="button" data-toggle="collapse" href="#basicInfo" aria-expanded="true" aria-controls="basicInfo">
+					<i class="fa fa-minus-square-o"></i> Basic Project Info
+				</a>
+			</h4>
+		</div>
+
+		<div class="alert alert-danger" role="alert" id="badSubmit" style="display: none">Whoops! Looks like there are some missing inputs.</div>
+		
+		<div id="basicInfo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingBasics">
+			<div class="panel-body" id="basics">
+				<div class="form-group has-feedback required">
+					<label for="projName" class="control-label">Project Name </label>
+					<input type="text" class="form-control" name="project_name" id="project_name" required maxlength="64" data-error="Please provide an initial title - don't worry, you can update if needed.">
+					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+					<div class="help-block with-errors"></div>
+				</div>
+				<div class="form-group has-feedback required">
+					<label for="description">Short Description of Project</label>
+					<textarea class="form-control" rows="3" name="description" id="description" data-error="Please provide at least a short description" required></textarea>
+					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+					<div class="help-block with-errors">Maximum of 4000 characters</div>
+				</div>
+				<div class="form-group">
+					<label for="projectStart">Start Date</label>
+					<input type="date" class="form-control" name="project_start" id="projectStart">
+				</div>
+				<div class="form-group has-feedback">
+					<label for="projectEnd">Projected End Date</label>
+					<p class="help-block"> Let potential hack-mates know how long you expect to be working on the project. An estimated date is ok.</p>
+					<input type="date" class="form-control" name="project_end" id="projectEnd" data-checkend='checkend'>
+					<div class="with-errors"></div>
+				</div>
+				<div class="form-group">
+					<h4> Target Industries </h4>
+					<p class="help-block">Select all that apply.</p>
+					<select multiple class="form-control" id="targetIndustry" name="target_industry">
+						{% for industry in formVars.industries %}
+		    				<option value="{{ industry }}">{{ industry }} </option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="panel panel-defalut">
+		<div class="panel-heading" role="tab" id="headingTeam">
+			<h4 class="panel-title">
+				<a class="collapsed" role="button" data-toggle="collapse" href="#teamInfo" aria-expanded="false" aria-controls="basicInfo">
+					<i class="fa fa-plus-square-o"></i> Team & Collaboration Info
+				</a>
+			</h4>
+		</div>
+		<div id="teamInfo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTeam">
+			<div class="panel-body">
+				<div class="form-group">
+					<label for="teamSize">Preferred Team Size</label>
+					<input type="number" class="form-control" name="team_size" id="teamSize">
+				</div>
+				<div class="form-group">
+					<label for="hoursPerWeek">Expected Hours-per-Week Committment</label>
+					<input type="number" class="form-control" name="hours_per_week" id="hoursPerWeek">
+				</div>
+				
+				<div class=" form-group" id="meetupOptions">
+				<h4> Collaboration Options </h4>
+					<p class="help-block">Check all that apply.</p>
+					<label>
+						<input type="checkbox" name="meetup_options" value="remote">Remote
+					</label>
+					<label>
+						<input type="checkbox" name="meetup_options" value="in-person">In-Person
+					</label>
+				</div>
+				<div class="form-group">
+					<h4> Region(s) of Bay Area Where Team Plans to Meet</h4>
+					<p class="help-block">Select all that apply.</p>
+					<select multiple class="form-control" id="region" name="region">
+						{% for region in formVars.regions %}
+		    				<option value="{{ region }}">{{ region }} </option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<div class="panel panel-defalut">
+		<div class="panel-heading" role="tab" id="headingTech">
+			<h4 class="panel-title">
+				<a class="collapsed" role="button" data-toggle="collapse" href="#techInfo" aria-expanded="false" aria-controls="basicInfo">
+					<i class="fa fa-plus-square-o"></i> Technology Info
+				</a>
+			</h4>
+		</div>
+		<div id="techInfo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTech">
+			<div class="panel-body">
+				<div class="form-group">
+					<h4> Technologies You Plan to Utilize </h4>
+					<p class="help-block">Select all that apply.</p>
+					<select multiple class="form-control" id="technology" name="technology">
+						{% for group in formVars.technologies %}
+							{% for key, val in group.iteritems() %}
+								<option disabled class="subCategory"> {{ key }} </option>
+								{% for tech in val %}
+									<option value="{{ tech }}">{{ tech }}</option>
+								{% endfor %}
+								<br>
+							{% endfor %}
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group">
+					<h4> Skills Sought </h4>
+					<p class="help-block">Select all that apply.</p>
+					<select multiple class="form-control" name="skills_needed" id="skillsNeeded">
+						{% for skill in formVars.skills %}
+		    				<option value="{{ skill }}">{{ skill }} </option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group">
+					<h4> Target Devices </h4>
+					<p class="help-block">Select all that apply.</p>
+					<select multiple class="form-control" id="targetDevices" name="target_devices">
+						{% for device in formVars.devices %}
+		    				<option value="{{ device }}">{{ device }} </option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+		<button type="submit" class="btn btn-default">Submit</button>
+</form>
+</div>
+
+<script src="http://1000hz.github.io/bootstrap-validator/dist/validator.min.js"></script>
+<script src="/static/js/submitNewProject.js"></script>
+
+{% endblock %}
