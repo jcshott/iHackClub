@@ -22,7 +22,7 @@ def addUser():
 @app.route('/create_project', methods=['GET'])
 def create_new_project():
 	""" returns empty new project form along with the multi-select variables """
-
+	
 	# I have this here for now but we can keep this structure somewhere else. this just dynamically renders the multi-select options so it's not hardcoded in HTML - then we can change as we see fit.
 	form_variables = {"regions": ["East Bay", "North Bay", "Peninsula", "San Francisco", "South Bay", "All", "n/a"], 
 					"technologies": [{'Backend/Server-Side': ["C", "C#", "C++", "Go", "Java", "Node.js", "Perl", "PHP", "Python", "Ruby", "Scala"]}, {"Database": ["MongoDB", "MySQL", "PostgreSQL", "Redis", "SQL Server"]}, {"Frontend": ["HTML/CSS", "Javascript", "Bootstrap", "Angular.js", "Backbone.js", "D3.js", "Ember.js", "jQuery", "React.js" ]}, {"Mobile": ["iOS", "Android"]}], 
@@ -33,10 +33,12 @@ def create_new_project():
 	}
 	return render_template("new_project.html", formVars=form_variables)
 
+
 @app.route('/save_project', methods=["POST"])
 def process_new_project_data():
 	
 	# multi-dict with form data http://werkzeug.pocoo.org/docs/0.11/datastructures/#werkzeug.datastructures.MultiDict
+	user_id = session["user_id"]
 	form_data = request.form
 	form_data = form_data.to_dict(flat=False)
 	# form_data is a dict with key=input name (i.e. project_name) and val=[values].
